@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_ten">
+
+    <ImageView
+        android:id="@+id/visitor_icon"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_ten"
+        android:layout_marginRight="@dimen/padding_ten"
+        android:layout_toLeftOf="@+id/entry_status"
+        android:layout_toRightOf="@+id/visitor_icon"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John James"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="9539633221/Apartment: AP-100G"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18-12-2015 10am TO 18-12-2015 1pm"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/entry_status"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="IN"
+        android:textColor="@color/white"
+        style="?attr/selectableItemBackgroundBorderless"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/green" />
+
+    <View
+        android:id="@+id/viewStub"
+        android:layout_width="wrap_content"
+        android:layout_height="0.25dp"
+        android:layout_below="@+id/text_layout"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary" />
+</RelativeLayout>

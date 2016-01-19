@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Visitors</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--Titles-->
+    <string name="title_create_request">Create new request</string>
+    <string name="title_visitors_list">Visitors list</string>
+    <string name="title_pending_request">Pending request</string>
+    <string name="title_change_password">Change password</string>
+    <string name="title_logout">Logout</string>
+    <string name="title_help">Help</string>
+    <!--create request-->
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="apartment">Apartment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="signIn">Sign In</string>
+
+
+</resources>

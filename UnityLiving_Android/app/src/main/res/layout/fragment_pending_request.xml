@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.project.UnityLiving.fragment.CreateRequestFragment">
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+          <include layout="@layout/list_item_pending_request"/>
+          <include layout="@layout/list_item_pending_request"/>
+
+      </LinearLayout>
+  </ScrollView>
+
+</FrameLayout>
