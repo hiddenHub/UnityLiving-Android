@@ -6,45 +6,69 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.project.UnityLiving.R;
 
 public class ChangePasswordFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
     private View root;
+    private EditText mPasswordEditText, mRepeatEditText;
+    private Button mChangePasswordButton;
 
-    public static ChangePasswordFragment newInstance(String param1, String param2) {
-        ChangePasswordFragment fragment = new ChangePasswordFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String  mNewPassword, mRepeatPassword;
+
 
     public ChangePasswordFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root= inflater.inflate(R.layout.fragment_change_password, container, false);
+        root = inflater.inflate(R.layout.fragment_change_password, container, false);
+        initViews();
         return root;
+    }
+
+    private void initViews() {
+        mPasswordEditText = (EditText) root.findViewById(R.id.password);
+        mRepeatEditText = (EditText) root.findViewById(R.id.repeat_password);
+        mChangePasswordButton = (Button) root.findViewById(R.id.change_password);
+        mChangePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mNewPassword = mPasswordEditText.getText().toString();
+                mRepeatPassword = mRepeatEditText.getText().toString();
+
+                if (validateForm()) {
+
+                }
+
+            }
+        });
+
+
+    }
+
+    private boolean validateForm() {
+
+        if (mNewPassword.isEmpty()) {
+            mPasswordEditText.setError(getString(R.string.error_form));
+            return false;
+        }
+        if (mRepeatPassword.isEmpty()) {
+            mRepeatEditText.setError(getString(R.string.error_form));
+            return false;
+        }
+        if (!mNewPassword.contentEquals(mRepeatPassword)) {
+            mRepeatEditText.setError(getString(R.string.error_password));
+            return false;
+        }
+        return true;
+
     }
 
 

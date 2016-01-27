@@ -32,7 +32,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_five"
+                    android:layout_margin="@dimen/padding_ten"
                     android:textColorHint="@color/white">
 
                     <android.support.v7.widget.AppCompatEditText
@@ -40,11 +40,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/white"
-                        android:singleLine="true"
-                        android:drawableLeft="@drawable/user"
+                        android:drawableLeft="@drawable/ic_person_white_18dp"
                         android:drawablePadding="@dimen/padding_five"
                         android:hint="@string/username"
                         android:inputType="textPersonName"
+                        android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white" />
                 </android.support.design.widget.TextInputLayout>
@@ -52,18 +52,43 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_five"
+                    android:layout_marginTop="@dimen/padding_ten"
+                    android:layout_marginRight="@dimen/padding_ten"
+                    android:layout_marginLeft="@dimen/padding_ten"
                     android:textColorHint="@color/white">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableLeft="@drawable/location"
+                        android:backgroundTint="@color/white"
+                        android:drawableLeft="@drawable/ic_lock_white_18dp"
                         android:drawablePadding="@dimen/padding_five"
                         android:hint="@string/password"
-                        android:backgroundTint="@color/white"
                         android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_ten"
+                    android:textColorHint="@color/white">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/appartment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        android:drawableLeft="@drawable/ic_room_white_18dp"
+                        android:drawableRight="@drawable/ic_chevron_right_white_36dp"
+                        android:drawablePadding="@dimen/padding_five"
+                        android:editable="false"
+                        android:hint="@string/apartment"
+                        android:inputType="none"
+                        android:text="bb"
                         android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white" />
@@ -87,13 +112,14 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="240dp"
-            android:tint="@color/white"
             android:layout_height="wrap_content"
             android:layout_above="@+id/relativeLayout"
             android:layout_centerHorizontal="true"
+
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="131dp"
+            android:layout_marginBottom="55dp"
             android:layout_weight="0.04"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:tint="@color/white" />
     </RelativeLayout>
 </FrameLayout>

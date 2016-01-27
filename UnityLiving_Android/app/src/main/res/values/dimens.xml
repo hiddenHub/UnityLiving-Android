@@ -8,5 +8,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="padding_ten">10dp</dimen>
-    <dimen name="padding_five">10dp</dimen>
+    <dimen name="padding_five">5dp</dimen>
 </resources>

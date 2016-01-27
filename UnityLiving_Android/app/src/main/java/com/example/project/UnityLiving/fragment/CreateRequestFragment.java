@@ -38,6 +38,7 @@ public class CreateRequestFragment extends Fragment implements View.OnClickListe
     private File mFileTemp;
 
 
+
     private View root;
     private ImageButton mCameraButton, mDoneButton, mCancelButton;
     private ImageView mUserImage;

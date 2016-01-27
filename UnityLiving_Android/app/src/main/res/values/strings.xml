@@ -23,6 +23,12 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="signIn">Sign In</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="new_password">New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="error_username">Enter username</string>
+    <string name="error_form">Required field</string>
+    <string name="error_password">Password not matching</string>
 
 
 </resources>
