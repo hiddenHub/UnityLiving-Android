@@ -12,7 +12,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.cabot.aecert.utils.Logger;
 
 import org.json.JSONObject;
 
@@ -98,7 +97,7 @@ public class NetworkManager implements NetworkOptions, Response.ErrorListener {
                     NetworkManager.this.mNetWorkListener.onResponse(response, JSON_OBJECT_REQUEST, requestId);
                 }
 
-                Logger.d(RESPONSE_TAG, response.toString());
+                Log.d(RESPONSE_TAG, response.toString());
 
                 if (mIsProgressEnabled) {
                     mDialog.dismiss();

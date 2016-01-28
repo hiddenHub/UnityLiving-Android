@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.VolleyError;
 import com.example.project.UnityLiving.Network.NetworkManager;
 import com.example.project.UnityLiving.Network.NetworkOptions;
 import com.example.project.UnityLiving.Network.Urls;
@@ -31,12 +32,15 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
     private NetworkManager networkManager;
     private ArrayList<ApartmentModel> mItems;
     private ArrayList<String> mApartmentName;
+    private AlertDialog.Builder ab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initViews();
+        networkManager = NetworkManager.getInstance(this);
+        networkManager.setOnNetworkListener(this);
         getApartmentList();
 
     }
@@ -46,20 +50,20 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
         mApartmentName = new ArrayList<>();
         networkManager = NetworkManager.getInstance(getApplicationContext());
         JSONObject jsonObject = new JSONObject();
-        networkManager.postJsonRequest(NetworkOptions.POST_REQUEST, Urls.APARTMNET_LIST_URL, jsonObject, Urls.APARTMNET_LIST_URL_TAG);
+        networkManager.postJsonRequest(NetworkOptions.GET_REQUEST, Urls.APARTMNET_LIST_URL, jsonObject, Urls.APARTMNET_LIST_URL_TAG);
 
     }
 
     private void tryLogin() {
-        networkManager = NetworkManager.getInstance(getApplicationContext());
+        networkManager.setProgressDialog(this, "Authenticating...", false);
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("username", mUsername);
-            jsonObject.put("password", mPassword);
+            jsonObject.put("username", "Adjmin");
+            jsonObject.put("password", "123");
             jsonObject.put("apartment", mApartment);
         } catch (Exception e) {
         }
-        networkManager.postJsonRequest(NetworkOptions.POST_REQUEST, Urls.LOGIN_URL, jsonObject, Urls.LOGIN_URL_TAG);
+        networkManager.postJsonRequest(NetworkOptions.GET_REQUEST, Urls.LOGIN_URL, jsonObject, Urls.LOGIN_URL_TAG);
 
     }
 
@@ -72,13 +76,14 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-
+                    ab.show();
                 }
             }
         });
         mAppartmentEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ab.show();
 
             }
         });
@@ -113,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
         if (mApartment.isEmpty()) {
             mAppartmentEditText.setError(getString(R.string.error_form));
             return false;
+
         }
 
         return true;
@@ -122,7 +128,9 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        Intent i = new Intent(this, HomeScreen.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -131,11 +139,13 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
             Gson gson = new Gson();
             ResponseModel responseModel = gson.fromJson(object.toString(), ResponseModel.class);
             mItems = responseModel.apartmentModels;
-            AlertDialog.Builder ab = new AlertDialog.Builder(LoginActivity.this);
+
             for (ApartmentModel mItem : mItems) {
                 mApartmentName.add(mItem.mAppartmentName);
             }
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, mApartmentName);
+            ab = new AlertDialog.Builder(LoginActivity.this);
+            ab.setTitle("Select apartment");
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.select_dialog_item, mApartmentName);
             ab.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -144,10 +154,10 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
             });
 
 
-        }
-        else
-        {
-
+        } else {
+            Intent i = new Intent(this, HomeScreen.class);
+            startActivity(i);
+            finish();
         }
 
     }
