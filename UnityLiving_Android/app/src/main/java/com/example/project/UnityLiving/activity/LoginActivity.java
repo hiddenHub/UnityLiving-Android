@@ -16,6 +16,7 @@ import com.example.project.UnityLiving.Network.NetworkManager;
 import com.example.project.UnityLiving.Network.NetworkOptions;
 import com.example.project.UnityLiving.Network.Urls;
 import com.example.project.UnityLiving.R;
+import com.example.project.UnityLiving.Utils.AppConstants;
 import com.example.project.UnityLiving.model.ApartmentModel;
 import com.example.project.UnityLiving.model.ResponseModel;
 import com.google.gson.Gson;
@@ -129,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkManager.O
     @Override
     public void onErrorResponse(VolleyError error) {
         Intent i = new Intent(this, HomeScreen.class);
+        i.putExtra(AppConstants.APARTMENT,mItems);
         startActivity(i);
         finish();
     }

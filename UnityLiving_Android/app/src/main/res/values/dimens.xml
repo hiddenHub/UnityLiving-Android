@@ -9,4 +9,7 @@
 
     <dimen name="padding_ten">10dp</dimen>
     <dimen name="padding_five">5dp</dimen>
+    <dimen name="list_title">18sp</dimen>
+    <dimen name="list_content">12sp</dimen>
+    <dimen name="dp_two">2dp</dimen>
 </resources>

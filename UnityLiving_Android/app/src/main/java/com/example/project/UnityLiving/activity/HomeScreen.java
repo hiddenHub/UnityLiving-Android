@@ -1,10 +1,11 @@
 package com.example.project.UnityLiving.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,57 +13,81 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.project.UnityLiving.R;
+import com.example.project.UnityLiving.Utils.AppConstants;
 import com.example.project.UnityLiving.fragment.ChangePasswordFragment;
 import com.example.project.UnityLiving.fragment.CreateRequestFragment;
 import com.example.project.UnityLiving.fragment.PendingRequestsFragment;
 import com.example.project.UnityLiving.fragment.VisitorsListFragment;
+import com.example.project.UnityLiving.model.ApartmentModel;
+
+import java.util.ArrayList;
+
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private ArrayList<ApartmentModel> mItems;
+    private FloatingActionButton mCreateRequestFab;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        initViews();
+        mFragmentManager = getSupportFragmentManager();
+
+        //CreateRequestFragment createRequestFragment = new CreateRequestFragment();
+
+        setMainFragment();
+
+        mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                Fragment f = mFragmentManager.findFragmentById(R.id.content_frame);
+                if (f != null) {
+                    if (f instanceof PendingRequestsFragment) {
+                        mCreateRequestFab.setVisibility(View.VISIBLE);
+
+                    } else {
+                        mCreateRequestFab.setVisibility(View.GONE);
+                    }
+
+
+                }
+            }
+        });
+
+
+    }
+
+    private void initViews() {
+        mCreateRequestFab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        mItems = (ArrayList<ApartmentModel>) getIntent().getSerializableExtra(AppConstants.APARTMENT);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        mFragmentManager = getSupportFragmentManager();
-
-        CreateRequestFragment createRequestFragment = new CreateRequestFragment();
-        setMainFragment(createRequestFragment);
-        navigationView.setCheckedItem(R.id.nav_create_request);
- /*       mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+        mCreateRequestFab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onBackStackChanged() {
-                Fragment f = mFragmentManager.findFragmentById(R.id.content_frame);
-                if (f != null) {
-                    if (f instanceof CreateRequestFragment) {
-                        toolbar.setTitle(getString(R.string.title_create_request));
-                        navigationView.setCheckedItem(R.id.nav_create_request);
-                    }
-
-
-                }
+            public void onClick(View view) {
+                popAllFragments();
+                CreateRequestFragment createRequestFragment = CreateRequestFragment.newInstance(mItems);
+                addFragment(createRequestFragment, getString(R.string.title_create_request));
             }
-        });*/
-
-
-
+        });
     }
 
     @Override
@@ -72,10 +97,9 @@ public class HomeScreen extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            if(mFragmentManager.getBackStackEntryCount()==0)
-            {
-                toolbar.setTitle(getString(R.string.title_create_request));
-                navigationView.setCheckedItem(R.id.nav_create_request);
+            if (mFragmentManager.getBackStackEntryCount() == 0) {
+                toolbar.setTitle(getString(R.string.title_pending_request));
+                navigationView.setCheckedItem(R.id.nav_pending_request);
             }
 
         }
@@ -105,22 +129,21 @@ public class HomeScreen extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_create_request) {
-            // Handle the camera action
-            CreateRequestFragment createRequestFragment = new CreateRequestFragment();
-            setMainFragment(createRequestFragment);
+            popAllFragments();
+            CreateRequestFragment createRequestFragment = CreateRequestFragment.newInstance(mItems);
+            addFragment(createRequestFragment, getString(R.string.title_create_request));
         } else if (id == R.id.nav_visitors_list) {
             popAllFragments();
             VisitorsListFragment visitorsListFragment = new VisitorsListFragment();
-            addFragment(visitorsListFragment,getString(R.string.title_visitors_list));
+            addFragment(visitorsListFragment, getString(R.string.title_visitors_list));
 
         } else if (id == R.id.nav_pending_request) {
             popAllFragments();
-            PendingRequestsFragment pendingRequestsFragment = new PendingRequestsFragment();
-            addFragment(pendingRequestsFragment,getString(R.string.title_pending_request));
+            setMainFragment();
         } else if (id == R.id.nav_change_password) {
             popAllFragments();
             ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
-            addFragment(changePasswordFragment,getString(R.string.title_change_password));
+            addFragment(changePasswordFragment, getString(R.string.title_change_password));
 
         } else if (id == R.id.nav_logout) {
 
@@ -134,17 +157,21 @@ public class HomeScreen extends AppCompatActivity
         return true;
     }
 
-    private void setMainFragment(Fragment fragment) {
-        toolbar.setTitle(getString(R.string.title_create_request));
+    private void setMainFragment() {
+        PendingRequestsFragment fragment = new PendingRequestsFragment();
+        navigationView.setCheckedItem(R.id.nav_pending_request);
+        toolbar.setTitle(getString(R.string.title_pending_request));
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.content_frame, fragment);
         mFragmentTransaction.commit();
     }
 
-    private void addFragment(Fragment fragment,String title) {
+    private void addFragment(Fragment fragment, String title) {
         toolbar.setTitle(title);
         mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.setCustomAnimations(R.anim.fragmentfadein, R.anim.fragmentfadeout, R.anim.fragmentfadein, R.anim.fragmentfadeout);
         mFragmentTransaction.replace(R.id.content_frame, fragment, fragment.getClass().getName());
+
         mFragmentTransaction.addToBackStack(fragment.getClass().getName());
         mFragmentTransaction.commit();
     }

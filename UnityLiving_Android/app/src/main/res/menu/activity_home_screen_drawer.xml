@@ -2,18 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_create_request" android:icon="@drawable/drawer_create_new_icon"
+        <item
+            android:id="@+id/nav_pending_request"
+            android:icon="@drawable/drawer_create_new_icon"
+            android:title="@string/title_pending_request" />
+        <item
+            android:id="@+id/nav_create_request"
+            android:icon="@drawable/drawer_create_new_icon"
 
             android:title="@string/title_create_request" />
-        <item android:id="@+id/nav_visitors_list" android:icon="@drawable/drawer_visitors_list_icon"
+        <item
+            android:id="@+id/nav_visitors_list"
+            android:icon="@drawable/drawer_visitors_list_icon"
             android:title="@string/title_visitors_list" />
-        <item android:id="@+id/nav_pending_request" android:icon="@drawable/drawer_create_new_icon"
-            android:title="@string/title_pending_request" />
-        <item android:id="@+id/nav_change_password" android:icon="@drawable/drawer_change_password_icon"
+
+        <item
+            android:id="@+id/nav_change_password"
+            android:icon="@drawable/drawer_change_password_icon"
             android:title="@string/title_change_password" />
-        <item android:id="@+id/nav_logout" android:icon="@drawable/drawer_logout_icon"
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/drawer_logout_icon"
             android:title="@string/title_logout" />
-        <item android:id="@+id/nav_help" android:icon="@drawable/drawer_help_icon"
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/drawer_help_icon"
             android:title="@string/title_help" />
 
     </group>

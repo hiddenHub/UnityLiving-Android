@@ -43,7 +43,7 @@ public class PendingRequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root= inflater.inflate(R.layout.fragment_approve, container, false);
+        root= inflater.inflate(R.layout.fragment_pending_request, container, false);
         return root;
     }
 
